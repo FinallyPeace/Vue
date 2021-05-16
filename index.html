@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+            crossorigin="anonymous"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+            integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+            crossorigin="anonymous"
+        />
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"
+            integrity="sha512-YXLGLsQBiwHPHLCAA9npZWhADUsHECjkZ71D1uzT2Hpop82/eLnmFb6b0jo8pK4T0Au0g2FETrRJNblF/46ZzQ=="
+            crossorigin="anonymous"
+        ></script>
+        <title>My First Vue.js</title>
+        <style>
+            .img {
+                position: absolute;
+                height: 100vh;
+                width: 100%;
+            }
+            .title {
+                position: relative;
+                top: 18vh;
+                width: fit-content;
+                margin: auto;
+                padding: 5px 20px;
+                background-color: aliceblue;
+                border-radius: 10px;
+                font-weight: bolder;
+                color: #4d6a8c;
+            }
+
+            .description {
+                position: relative;
+                top: 78vh;
+                width: 50%;
+                margin: auto;
+                background-color: #000;
+                color: aliceblue;
+                border-radius: 10px;
+                border: 2px white solid;
+                text-align: center;
+                font-size: 28px;
+                line-height: 50px;
+            }
+            .type {
+                color: skyblue;
+            }
+            .content {
+                color: aquamarine;
+            }
+
+            a {
+                text-decoration: none;
+            }
+            a:hover {
+                color: aquamarine;
+            }
+
+            .arrow {
+                position: absolute;
+                color: aliceblue;
+            }
+            .left {
+                left: -12vw;
+            }
+            .right {
+                right: -12vw;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <!-- 
+                v-text='變數' 可縮寫 {{ 變數 }}
+                v-bind:src 可縮寫 :src
+                v-on:click 可縮寫 @click
+            -->
+            <img class="img" :src="src" />
+            <h1 class="title" v-text="title"></h1>
+
+            <div class="description">
+                <a class="arrow left" v-if="index > 0" v-on:click="changIndex(-1)"
+                    ><i class="fas fa-chevron-left"></i
+                ></a>
+                <span class="number">{{ index + 1 }}</span>
+                <span class="type">{{ today.type }}</span>
+                <a class="content" :href="today.link">{{ today.content }}</a>
+                <a class="arrow right" v-if="index < total-1" @click="changIndex(1)"
+                    ><i class="fas fa-chevron-right"></i
+                ></a>
+            </div>
+        </div>
+
+        <script>
+            let data = {
+                title: '菜單',
+                src: './image/vue.png',
+                index: 0,
+                menu: [
+                    { type: '沙拉', content: '燻鮭魚', link: 'javascript;' },
+                    { type: '主餐', content: '牛排', link: 'javascript;' },
+                    { type: '甜點', content: '抹茶冰淇淋', link: 'javascript;' },
+                    { type: '飲料', content: 'Mojito', link: 'javascript;' }
+                ]
+            }
+            // 資料綁定
+            let vm = new Vue({
+                el: '#app', // el: element
+                data: data,
+                // 放需要被計算的資料,會cache
+                computed: {
+                    today() {
+                        return this.menu[this.index]
+                    },
+                    total() {
+                        return this.menu.length
+                    }
+                },
+                methods: {
+                    changIndex(change) {
+                        this.index = (this.index + change + this.total) % this.total
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

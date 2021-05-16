@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"
+            integrity="sha512-YXLGLsQBiwHPHLCAA9npZWhADUsHECjkZ71D1uzT2Hpop82/eLnmFb6b0jo8pK4T0Au0g2FETrRJNblF/46ZzQ=="
+            crossorigin="anonymous"
+        ></script>
+        <title>表單</title>
+        <style>
+            body {
+                margin: 0;
+                font-weight: bold;
+                height: 100vh;
+                background-image: linear-gradient(to top, #43b885 0%, #41b885 100%);
+            }
+
+            .layout {
+                position: relative;
+                width: 50%;
+                margin: auto;
+                padding: 50px;
+                border-radius: 15px;
+            }
+
+            .output {
+                font-size: 2rem;
+                text-align: center;
+                top: 20vh;
+                background-color: #4d6a8c;
+            }
+
+            form {
+                top: 30vh;
+                background-color: aliceblue;
+            }
+
+            @media screen and (max-width: 768px) {
+                .output {top: 8vh;}
+                form {top: 15vh;}
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <div class="output layout">
+                {{name}}, {{gender}}, {{age}},<br />
+                {{ favor.length?'喜歡 ':''}} {{favor.join('、')}}, {{member ? '已':'未'}}成為會員。
+            </div>
+            <form class="layout">
+                <div>
+                    <label>姓名：</label>
+                    <input class="" type="text" v-model="name"/>
+                </div>
+                <br />
+                <div>
+                    <label>性別：</label>
+                    <input class="" type="radio" name="gender" value="男" v-model="gender"/>男 
+                    <input class="" type="radio" name="gender" value="女" v-model="gender"/>女
+                </div>
+                <br />
+                <div>
+                    <label>年齡：</label>
+                    <select v-model="age">
+                        <option>20 歲以下</option>
+                        <option>20 ~ 30 歲間</option>
+                        <option>30 ~ 40 歲間</option>
+                        <option>40 歲以上</option>
+                    </select>
+                </div>
+                <br />
+                <div>
+                    <label>興趣：</label>
+                    <input class="" type="checkbox" value="聽音樂" v-model="favor"/>聽音樂 
+                    <input class="" type="checkbox" value="看電影" v-model="favor"/>看電影
+                    <input class="" type="checkbox" value="玩遊戲" v-model="favor"/>玩遊戲
+                </div>
+                <br />
+                <div>
+                    <label>會員：</label>
+                    <input class="" type="checkbox" v-model="member"/>加入
+                </div>
+            </form>
+        </div>
+
+        <script src="vue.js"></script>
+    </body>
+</html>
