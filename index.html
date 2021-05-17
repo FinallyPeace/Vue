@@ -95,7 +95,7 @@
                 ></a>
                 <span class="number">{{ index + 1 }}</span>
                 <span class="type">{{ today.type }}</span>
-                <a class="content" :href="today.link">{{ today.content }}</a>
+                <a class="content" href="./2. 使用者輸入 列表呈現/list.html" :href="today.link">{{ today.content }}</a>
                 <a class="arrow right" v-if="index < total-1" @click="changIndex(1)"
                     ><i class="fas fa-chevron-right"></i
                 ></a>
@@ -108,10 +108,10 @@
                 src: './image/vue.png',
                 index: 0,
                 menu: [
-                    { type: '沙拉', content: '燻鮭魚', link: 'javascript;' },
-                    { type: '主餐', content: '牛排', link: 'javascript;' },
-                    { type: '甜點', content: '抹茶冰淇淋', link: 'javascript;' },
-                    { type: '飲料', content: 'Mojito', link: 'javascript;' }
+                    { type: '開胃菜', content: '表單處理', link: './1. 表單處理 雙向資料/form.html' },
+                    { type: '開胃菜', content: '新增列表', link: './2. 使用者輸入 列表呈現/list.html' },
+                    { type: '開胃菜', content: '...', link: 'javascript;' },
+                    { type: '開胃菜', content: '...', link: 'javascript;' }
                 ]
             }
             // 資料綁定

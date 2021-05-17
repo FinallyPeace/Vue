@@ -1,0 +1,6 @@
+body {
+    margin: 0;
+    font-weight: bold;
+    height: 100vh;
+    background-image: linear-gradient(to top, #43b885 0%, #41b885 100%);
+}

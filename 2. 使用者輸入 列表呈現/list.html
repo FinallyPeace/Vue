@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"
+            integrity="sha512-YXLGLsQBiwHPHLCAA9npZWhADUsHECjkZ71D1uzT2Hpop82/eLnmFb6b0jo8pK4T0Au0g2FETrRJNblF/46ZzQ=="
+            crossorigin="anonymous"
+        ></script>
+        <link rel="stylesheet" href="../base.css" />
+        <title>列表</title>
+        <style>
+            a {
+                text-decoration: none;
+            }
+            .layout {
+                position: relative;
+                width: 50%;
+                margin: auto;
+                padding: 20px;
+                border-radius: 15px;
+            }
+            .input {
+                top: 20vh;
+                background-color: #4d6a8c;
+            }
+            .input > * {
+                border: 0px;
+                height: 50px;
+                font-size: 20px;
+                font-weight: bolder;
+            }
+            select {
+                width: 25%;
+                color: #4d6a8c;
+                padding: 0 5%;
+            }
+            input {
+                padding: 0;
+                width: 75%;
+                text-align: center;
+                color: #43b885;
+            }
+            .menu {
+                top: 30vh;
+                background-color: aliceblue;
+                display: flex;
+                flex-wrap: wrap;
+            }
+            .menuItem {
+                width: 50%;
+                padding: 10px 0;
+                font-weight: bolder;
+            }
+            .type {
+                color: #4d6a8c;
+            }
+            .content {
+                color: #43b885;
+            }
+            @media screen and (max-width: 768px) {
+                select {
+                    width: 40%;
+                }
+                input {
+                    width: 60%;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <section>
+                <div class="container">
+                    <div class="layout input" style="font-size: 0px">
+                        <select v-model="input.type">
+                            <option>沙拉</option>
+                            <option>主餐</option>
+                            <option>甜點</option>
+                            <option>飲料</option>
+                        </select>
+                        <input type="text" v-model.trim="input.content" @keyup.enter="inputHandler" />
+                        <!-- trim 去頭尾空白 -->
+                    </div>
+                    <div class="layout menu">
+                        <div class="menuItem" v-for="(item,index) in menu">
+                            <span class="number">{{index+1}}</span>
+                            <span class="type">{{item.type}}</span>
+                            <a :href="item.link" target="vue-iron" class="content">{{item.content}}</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <script src="vue.js"></script>
+    </body>
+</html>

@@ -9,15 +9,9 @@
             integrity="sha512-YXLGLsQBiwHPHLCAA9npZWhADUsHECjkZ71D1uzT2Hpop82/eLnmFb6b0jo8pK4T0Au0g2FETrRJNblF/46ZzQ=="
             crossorigin="anonymous"
         ></script>
+        <link rel="stylesheet" href="../base.css" />
         <title>表單</title>
         <style>
-            body {
-                margin: 0;
-                font-weight: bold;
-                height: 100vh;
-                background-image: linear-gradient(to top, #43b885 0%, #41b885 100%);
-            }
-
             .layout {
                 position: relative;
                 width: 50%;
@@ -29,18 +23,22 @@
             .output {
                 font-size: 2rem;
                 text-align: center;
-                top: 20vh;
+                top: 15vh;
                 background-color: #4d6a8c;
             }
 
             form {
-                top: 30vh;
+                top: 25vh;
                 background-color: aliceblue;
             }
 
             @media screen and (max-width: 768px) {
-                .output {top: 8vh;}
-                form {top: 15vh;}
+                .output {
+                    top: 8vh;
+                }
+                form {
+                    top: 15vh;
+                }
             }
         </style>
     </head>
@@ -53,13 +51,13 @@
             <form class="layout">
                 <div>
                     <label>姓名：</label>
-                    <input class="" type="text" v-model="name"/>
+                    <input class="" type="text" v-model="name" />
                 </div>
                 <br />
                 <div>
                     <label>性別：</label>
-                    <input class="" type="radio" name="gender" value="男" v-model="gender"/>男 
-                    <input class="" type="radio" name="gender" value="女" v-model="gender"/>女
+                    <input class="" type="radio" name="gender" value="男" v-model="gender" />男
+                    <input class="" type="radio" name="gender" value="女" v-model="gender" />女
                 </div>
                 <br />
                 <div>
@@ -74,14 +72,14 @@
                 <br />
                 <div>
                     <label>興趣：</label>
-                    <input class="" type="checkbox" value="聽音樂" v-model="favor"/>聽音樂 
-                    <input class="" type="checkbox" value="看電影" v-model="favor"/>看電影
-                    <input class="" type="checkbox" value="玩遊戲" v-model="favor"/>玩遊戲
+                    <input class="" type="checkbox" value="聽音樂" v-model="favor" />聽音樂
+                    <input class="" type="checkbox" value="看電影" v-model="favor" />看電影
+                    <input class="" type="checkbox" value="玩遊戲" v-model="favor" />玩遊戲
                 </div>
                 <br />
                 <div>
                     <label>會員：</label>
-                    <input class="" type="checkbox" v-model="member"/>加入
+                    <input class="" type="checkbox" v-model="member" />加入
                 </div>
             </form>
         </div>
