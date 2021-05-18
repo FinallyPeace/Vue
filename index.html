@@ -90,15 +90,15 @@
             <h1 class="title" v-text="title"></h1>
 
             <div class="description">
-                <a class="arrow left" v-if="index > 0" v-on:click="changIndex(-1)"
-                    ><i class="fas fa-chevron-left"></i
-                ></a>
+                <a class="arrow left" v-if="index > 0" v-on:click="changIndex(-1)">
+                    <i class="fas fa-chevron-left"></i>
+                </a>
                 <span class="number">{{ index + 1 }}</span>
                 <span class="type">{{ today.type }}</span>
                 <a class="content" href="./2. 使用者輸入 列表呈現/list.html" :href="today.link">{{ today.content }}</a>
-                <a class="arrow right" v-if="index < total-1" @click="changIndex(1)"
-                    ><i class="fas fa-chevron-right"></i
-                ></a>
+                <a class="arrow right" v-if="index < total-1" @click="changIndex(1)">
+                    <i class="fas fa-chevron-right"></i>
+                </a>
             </div>
         </div>
 
@@ -108,9 +108,9 @@
                 src: './image/vue.png',
                 index: 0,
                 menu: [
-                    { type: '開胃菜', content: '表單處理', link: './1. 表單處理 雙向資料/form.html' },
-                    { type: '開胃菜', content: '新增列表', link: './2. 使用者輸入 列表呈現/list.html' },
-                    { type: '開胃菜', content: '...', link: 'javascript;' },
+                    { type: '開胃菜', content: '表單處理', link: '1. 表單處理 雙向資料/form.html' },
+                    { type: '開胃菜', content: '新增列表', link: '2. 輸入資料 列表呈現/list.html' },
+                    { type: '開胃菜', content: '資料搜尋', link: '3. 篩選搜尋 資料轉換/search.html' },
                     { type: '開胃菜', content: '...', link: 'javascript;' }
                 ]
             }
@@ -118,7 +118,7 @@
             let vm = new Vue({
                 el: '#app', // el: element
                 data: data,
-                // 放需要被計算的資料,會cache
+                // computed 放需要被計算的資料, 會cache
                 computed: {
                     today() {
                         return this.menu[this.index]

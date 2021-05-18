@@ -11,8 +11,7 @@ let data = {
         { type: '甜點', content: '焦糖布蕾', link: 'javascript:;' },
         { type: '甜點', content: '抹茶冰淇淋', link: 'javascript:;' },
         { type: '飲料', content: '長島冰茶', link: 'javascript:;' },
-        { type: '飲料', content: 'Mojito', link: 'javascript:;' },
-        
+        { type: '飲料', content: 'Mojito', link: 'javascript:;' }
     ]
 }
 

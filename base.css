@@ -4,3 +4,10 @@ body {
     height: 100vh;
     background-image: linear-gradient(to top, #43b885 0%, #41b885 100%);
 }
+.layout {
+    position: relative;
+    width: 50%;
+    margin: auto;
+    padding: 20px;
+    border-radius: 15px;
+}
