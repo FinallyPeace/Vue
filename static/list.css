@@ -1,0 +1,51 @@
+a {
+    text-decoration: none;
+}
+
+.input {
+    top: 20vh;
+    background-color: #4d6a8c;
+}
+.input > * {
+    border: 0px;
+    height: 50px;
+    font-size: 20px;
+    font-weight: bolder;
+}
+select {
+    width: 25%;
+    color: #4d6a8c;
+    padding: 0 5%;
+    text-align-last:center;
+}
+input {
+    padding: 0;
+    width: 75%;
+    text-align: center;
+    color: #43b885;
+}
+.menu {
+    top: 30vh;
+    background-color: aliceblue;
+    display: flex;
+    flex-wrap: wrap;
+}
+.menuItem {
+    width: 50%;
+    padding: 10px 0;
+    font-weight: bolder;
+}
+.type {
+    color: #4d6a8c;
+}
+.content {
+    color: #43b885;
+}
+@media screen and (max-width: 768px) {
+    select {
+        width: 40%;
+    }
+    input {
+        width: 60%;
+    }
+}

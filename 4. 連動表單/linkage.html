@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"
+            integrity="sha512-YXLGLsQBiwHPHLCAA9npZWhADUsHECjkZ71D1uzT2Hpop82/eLnmFb6b0jo8pK4T0Au0g2FETrRJNblF/46ZzQ=="
+            crossorigin="anonymous"
+        ></script>
+        <link rel="stylesheet" href="../static/base.css" />
+        <link rel="stylesheet" href="../static/list.css" />
+        <title>連動表單</title>
+        <style>
+            select:nth-of-type(1) {
+                width: 25%;
+            }
+            select:nth-of-type(2) {
+                width: 75%;
+                color: #43b885;
+            }
+            .menu {
+                text-align: center;
+            }
+            .menuItem {
+                width: 100%;
+            }
+            @media screen and (max-width: 768px) {
+                select:nth-of-type(1) {
+                    width: 40%;
+                }
+                select:nth-of-type(2) {
+                    width: 60%;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <section>
+                <div class="container">
+                    <div class="layout input" style="font-size: 0px">
+                        <select v-model="input.type">
+                            <!-- :value='null' 綁上一個程式空的物件 -->
+                            <option :value="null">請選擇</option>
+                            <option v-for="item in typeList.sort">{{item}}</option>
+                        </select>
+                        <select v-model="input.content">
+                            <option :value="null">請選擇</option>
+                            <option v-for="item in contentList.sort">{{item}}</option>
+                        </select>
+                    </div>
+                    <div class="layout menu">
+                        <div class="menuItem" v-if='output'>
+                            <span class="number">{{output.index+1}}</span>
+                            <a :href='output.link' target="vue-iron" class="content">{{output.content}}</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <script src="vue.js"></script>
+    </body>
+</html>
