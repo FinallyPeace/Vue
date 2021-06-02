@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optional Chaining </title>
+</head>
+<body>
+    <script>
+        const obj = {
+            name: '我',
+            // sibling: {
+            //     name: '姊姊'
+            // }
+        }
+        // 不確定屬性是否存在，物件取得深層值而不出錯
+        // 傳統用 hasOwnProperty('屬性名') 來判斷某物件是否含有指定的自身屬性
+        console.log(obj.hasOwnProperty('sibling'))
+        
+        // Optional Chaining (可選串連) .前面加?
+        console.log(obj?.sibling?.name)
+        console.log('原本不會執行這行')
+    </script>
+</body> 
+</html>

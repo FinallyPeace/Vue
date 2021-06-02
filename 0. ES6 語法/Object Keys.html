@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Object Keys</title>
+    </head>
+    <body>
+        <p id="output"></p>
+
+        <script type="module">
+            // 物件
+            const obj = {
+                father: {
+                    name: '爸爸',
+                    age: 60
+                },
+                mother: {
+                    name: '媽媽',
+                    age: 55
+                },
+                sister: {
+                    name: '姊姊',
+                    age: 29
+                },
+                me: {
+                    name: '我',
+                    age: 25
+                }
+            }
+            // 陣列
+            const arr = [
+                {
+                    name: '爸爸',
+                    age: 60
+                },
+                {
+                    name: '媽媽',
+                    age: 55
+                },
+                {
+                    name: '姊姊',
+                    age: 29
+                },
+                {
+                    name: '我',
+                    age: 25
+                }
+            ]
+
+            let x = ''
+            for (const key in obj) {
+                x += '<h2>' + key + '</h2>'
+                for (const secondKey in obj[key]) {
+                    x += '<ul>' + obj[key][secondKey] + '</ul>'
+                }
+            }
+            document.getElementById('output').innerHTML = x
+
+            /*
+            // 陣列 跑迴圈傳統用 forEach or for
+            arr.forEach((item) => {
+                console.log(item)
+            })
+            
+            for (let i = 0; i < arr.length; i++) {
+                console.log(arr[i])
+            }
+            // 物件跑迴圈傳統用 for in
+            for (const key in obj) {
+                console.log(obj[key])
+            }
+            */
+
+            /*
+            // for in 缺點：會印出原型方法
+            // 建構式
+            function Obj(obj) {
+                this.a = obj.a
+                this.b = obj.b
+                this.c = obj.c
+            }
+            // 原型方法
+            Obj.prototype.newMethod1 = function () {
+                return this
+            }
+
+            const obj2 = new Obj({
+                a: 1,
+                b: 2,
+                c: 3
+            })
+
+            console.log(obj2)
+            for (const key in obj2) {
+                console.log(obj2[key])
+            }
+            */
+
+            // 因此改用 Object.values()，會 return 陣列 就能用 forEach
+            console.log(Object.values(obj))
+            Object.values(obj).forEach((item) => {
+                console.log(item)
+            })
+            // 用 Object.keys() 取key值
+            console.log(Object.keys(obj))
+            Object.keys(obj).forEach((key) => {
+                console.log(key, obj[key])
+            })
+        </script>
+    </body>
+</html>
