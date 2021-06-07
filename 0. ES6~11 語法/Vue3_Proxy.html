@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <div id="app2"></div>
+    <script>
+        const obj = {
+            a: '',
+            value: {
+
+            }
+        }
+        // 傳統做法 defineProperty 監聽 a
+        Object.defineProperty(obj, 'a', {
+            get() {
+                console.log('getter1')
+                return this.value.a
+            },
+            set(value) {
+                // console.log('setter', value)
+                this.value.a = value
+
+                const app = document.querySelector('#app')
+                app.innerHTML = this.value.a
+            }
+        })
+        obj.a = 1
+        console.log(obj.a)
+
+        // vue3 Proxy
+        const handler = {
+            get(target, prop) {
+                console.log('getter2', target, prop)
+                return target[prop]
+            },
+            set(obj, prop, value) {
+                console.log('setter2', obj, prop, value)
+                // obj2.a = 2
+                obj[prop] = value
+
+                const app = document.querySelector('#app2')
+                app2.innerHTML = obj[prop]
+
+                return true // setter 完成
+            }
+        }
+        // 監聽這物件內裡的所有值 控制器控制方法
+        const obj2 = new Proxy({}, handler)
+        obj2.a = 2
+        console.log(obj2.a)
+    </script>
+</body>
+
+</html>

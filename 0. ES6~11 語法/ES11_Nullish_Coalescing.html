@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES11 Nullish Coalescing</title>
+</head>
+
+<body>
+    <script>
+        /* 在 JS 中，有許多數值在邏輯判斷中，其結果與 false 等價。
+        由於其數值實際上並非 false，因此，特別稱此類數值為 falsy value */
+        let falsy = [0, NaN, '', false, null, undefined]
+
+        // ES11 Nullish Coalescing (空位合併) ??，但會skip null 和 undefined
+        function fn(a) {
+            // const newValue = a || '沒變'
+            const newValue = a ?? '沒變'
+
+            console.log("fn: " + newValue)
+        }
+        falsy.forEach((item, index) => {
+            fn(item) // 原本全是'沒變'
+        })
+
+        // ES6 參數預設值，會skip undefined
+        function fn2(a = '沒變') {
+
+            console.log("fn2: " + a)
+        }
+        falsy.forEach((item, index) => {
+            fn2(item)
+        })
+
+    </script>
+</body>
+
+</html>

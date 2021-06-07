@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES11 BigInt</title>
+</head>
+
+<body>
+    <script>
+        // 最大安全數做運算不穩定，會出錯
+        console.log(Number.MAX_SAFE_INTEGER) // 9007199254740991
+        console.log(Number.MAX_SAFE_INTEGER + 10) //9007199254741000 出錯
+        // 需轉成 BigInt 型態做運算
+        console.log(BigInt(Number.MAX_SAFE_INTEGER) + 10n)
+    </script>
+</body>
+
+</html>
