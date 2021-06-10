@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES6</title>
+</head>
+
+<body>
+    <script>
+        // 1.解構賦值
+        // 陣列解構賦值 (Array destructuring)
+        let [a, b] = [1, 2]
+        console.log(a, b)
+        // 交換值
+        let c = 3, d = 4;
+        [c, d] = [d, c];
+        console.log(c, d)
+        // 解構失敗保護 foo = undefined
+        let [foo, bar] = [, 1]
+        console.log(foo, bar)
+        // 擴展運算符 (spread)
+        let [head, ...tail] = [1, 2, 3, 4]
+        console.log(head, tail)
+
+        // 物件解構賦值 (Object destructuring)
+        const { person: name } = { person: '練' }
+        console.log(name)
+        // 屬性賦值
+        // const { prop: prop, prop2: prop2 } 簡寫
+        const { prop, prop2 } = { prop: 'prop', prop2: 'prop2' }
+        console.log(prop, prop2)
+
+        let obj = {
+            person: {
+                name: '練家麟',
+                age: 25
+            }
+        }
+        let { person } = obj
+        console.log(person) // {name: "練", age: 25}
+
+        // 2.模板字串 (Template literals)
+        console.log("名字: " + person.name + "\n年齡: " + (20 + 5))
+        console.log(`名字: ${person.name}
+年齡: ${20 + 5}`)
+    </script>
+</body>
+
+</html>

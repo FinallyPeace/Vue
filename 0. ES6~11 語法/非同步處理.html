@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 非同步依序存取 A -> B -> C
+        // Math.random() 會回傳一個偽隨機小數介於 0 ~ 1(包含 0，不包含1)
+        // 模擬3個 AJAX
+        function A(f) {
+            setTimeout(() => {
+                console.log("A")
+                f()
+            }, Math.random() * 100)
+        }
+        function B(f) {
+            setTimeout(() => {
+                console.log("B")
+                f()
+            }, Math.random() * 100)
+        }
+        function C(f) {
+            setTimeout(() => {
+                console.log("C")
+                f()
+            }, Math.random() * 100)
+        }
+
+        // 1.callback
+        /*
+        A(function () {
+            B(function () {
+                C(function () {
+                    console.log("callback")
+                })
+            })
+        })
+        */
+        // 缺點: callback hell
+
+        // 2.Generator + Recursion
+        // function *run() 也可以
+        /*
+        function* generator() {
+            for (var i = 0; i < arguments.length; i++) {
+                yield arguments[i]
+            }
+        }
+        function recursion(generator) {
+            let next = generator.next()
+            if (!next.done) {
+                next.value(function () {
+                    recursion(generator)
+                })
+            }
+        }
+        debugger
+        recursion(generator(A, B, C))
+        */
+
+        // 3.Promise
+        function promiseWrap(fn) {
+            // 非同步完成呼叫 resolve，失敗 reject 函式
+            return new Promise((resolve, reject) => {
+                // reject('demo error call reject')
+                // reject(new Error('demo error call reject'))
+                fn(function () {
+                    resolve()
+                })
+            })
+        }
+        /*
+        promiseWrap(A).then(() => {
+            return promiseWrap(B)
+        }, () => {
+            // then 第2個參數執行 reject function
+            // 只有 promiseWrap(A) 失敗才執行
+        }).then(() => {
+            return promiseWrap(C)
+        }).catch // 任一個 promiseWrap 錯都會跳到 catch
+        */
+
+        // 立即函式，用()包function後再加一個()
+        // (function(){})()
+
+        // 4.ES7 Async...Await 控制 Promise順序
+        // 非同步方式執行，async寫在function前面
+        (async function () {
+            try {
+                await promiseWrap(A)
+                await promiseWrap(B)
+                await promiseWrap(C)
+            } catch (e) {
+                console.log(e)
+            }
+        })()
+
+        /*
+        function promiseWrap2(fn) {
+            return new Promise((resolve, reject) => {
+                let xhr = new XMLHttpRequest()
+                xhr.addEventListener('load', () => {
+                    resolve()
+                })
+                xhr.addEventListener('error', () => {
+                    reject()
+                })
+                xhr.open('GET', '/api/123')
+                xhr.send()
+            })
+        }
+        */
+    </script>
+</body>
+
+</html>
