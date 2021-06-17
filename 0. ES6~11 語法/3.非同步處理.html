@@ -10,7 +10,7 @@
 
 <body>
     <script>
-        // 非同步依序存取 A -> B -> C
+        // 非同步但保證依序存取 A -> B -> C
         // Math.random() 會回傳一個偽隨機小數介於 0 ~ 1(包含 0，不包含1)
         // 模擬3個 AJAX
         function A(f) {

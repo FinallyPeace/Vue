@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"
+            integrity="sha512-YXLGLsQBiwHPHLCAA9npZWhADUsHECjkZ71D1uzT2Hpop82/eLnmFb6b0jo8pK4T0Au0g2FETrRJNblF/46ZzQ=="
+            crossorigin="anonymous"
+        ></script>
+        <title>Event Queue</title>
+    </head>
+    <body>
+        <div id="app">
+            <ul>
+                <li v-for="i in list">{{i}}</li>
+            </ul>
+        </div>
+        <script>
+            /*
+            JS是單線程(single thread)，一次只能做一件事
+            Event Queue利用時間差，讓JS感覺好像可以同時做很多事情
+            setTimeout、Promise、AJAX屬於WebAPIs，不在JS單線程限制範圍內
+            */
+            
+            console.log('A')
+            function run() {
+                console.log('B')
+            }
+            setTimeout(run, 3000)
+            let start = Date.now()
+            while (Date.now() - start <= 5000) {
+                // wait 5 sec
+            }
+            console.log('C')
+            // A先B進queue待C，CB同時完成
+            
+            new Vue({
+                el: '#app',
+                data() {
+                    return {
+                        list: []
+                    }
+                },
+                mounted() {
+                    for (let i = 0; i < 5; i++) {
+                        setTimeout(function (i) {
+                            debugger // F10看結果
+                            this.list.push(i + 1)
+                        }.bind(this, i))
+                    }
+                }
+            })
+            // 一開始for5個queue，一次顯示一個
+        </script>
+    </body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 非同步GET請求發送
+            console.log('非同步GET請求發送: start')
+            let xhr = new XMLHttpRequest()
+            xhr.addEventListener('load', () => {
+                console.log('非同步GET請求發送:', this.responseText)
+            })
+            xhr.open('GET', 'https://run.mocky.io/v3/57dae377-0f3f-488b-adf9-46f679b147d5')
+            xhr.send()
+            console.log('非同步GET請求發送: end')
+
+            // 非同步POST請求發送
+            console.log('非同步POST請求發送: start')
+            // 要傳送的參數
+            let data = new FormData()
+            data.append('id', '1')
+
+            let xhr2 = new XMLHttpRequest()
+            xhr2.addEventListener('load', () => {
+                console.log('非同步POST請求發送:', this.responseText)
+            })
+            xhr2.open('POST', 'https://run.mocky.io/v3/57dae377-0f3f-488b-adf9-46f679b147d5')
+            xhr2.send(data) // 傳送參數
+            console.log('非同步POST請求發送: end')
+
+            // fetch發送GET請求
+            fetch('https://run.mocky.io/v3/57dae377-0f3f-488b-adf9-46f679b147d5').then((response) => {
+                // 取得API裡設定json資料
+                return response.json()
+            }).then((data) => {
+                // 透過第二個then拿到資料
+                console.log('fetch發送GET請求:', data)
+            })
+
+            // fetch發送POST請求
+            let data2 = new FormData()
+            data2.append('id', '2')
+
+            fetch('https://run.mocky.io/v3/57dae377-0f3f-488b-adf9-46f679b147d5', {
+                method: 'POST',
+                body: data
+            }).then((response) => {
+                // 取得API裡設定json資料
+                return response.json()
+            }).then((data) => {
+                // 透過第二個then拿到資料
+                console.log('fetch發送POST請求:', data)
+            })
+        </script>
+    </body>
+</html>
