@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+            crossorigin="anonymous"
+        />
+        <link rel="stylesheet" href="../static/base.css" />
+        <title>資料設定</title>
+        <style>
+            body {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-content: center;
+            }
+            .layout {
+                text-align: center;
+            }
+            .layout > div {
+                display: inline-block;
+                margin: 0 25px;
+                width: 50px;
+                height: 50px;
+                background: #4d6a8c;
+                border-radius: 50%;
+                line-height: 50px;
+                color: #fff;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <div class="container">
+                <div class="layout">
+                    <div @click="number++">{{number}}</div>
+                </div>
+                <div class="layout">
+                    <div @click="obj.num++">{{obj.num}}</div>
+                </div>
+                <div class="layout">
+                    <div v-for="(number, index) in numberList" @click="numberListHandler(index)">{{number}}</div>
+                </div>
+                <div class="layout">
+                    <div v-for="(item, index) in objList" @click="objListHandler(index)">{{item.num}}</div>
+                </div>
+            </div>
+        </div>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"
+            integrity="sha512-YXLGLsQBiwHPHLCAA9npZWhADUsHECjkZ71D1uzT2Hpop82/eLnmFb6b0jo8pK4T0Au0g2FETrRJNblF/46ZzQ=="
+            crossorigin="anonymous"
+        ></script>
+        <script>
+            let data = {
+                number: 0,
+                numberList: [0, 0, 0],
+                obj: {
+                    num: 0
+                },
+                objList: [{ num: 0 }, { num: 0 }, { num: 0 }]
+            }
+            let vm = new Vue({
+                el: '#app',
+                data: data,
+                methods: {
+                    numberListHandler(index) {
+                        // this.numberList[index]++ 不是Observer，無法更新在畫面上
+                        // 用$set( 陣列, 位置, 值 )
+                        this.$set(this.numberList, index, this.numberList[index] + 1)
+                    },
+                    objListHandler(index) {
+                        this.objList[index].num++
+                    }
+                },
+                watch: {
+                    number(val, oldVal) {
+                        console.log('number:', val, oldVal)
+                    },
+                    ['obj.num'](val, oldVal) {
+                        console.log('obj:', val, oldVal)
+                    },
+                    /*
+                    可觀察物件裡所有屬性
+                    obj: {
+                        handler(val, oldVal) {
+                            console.log('number:', val, oldVal)
+                        },
+                        deep: true
+                    }*/
+                    // $set 利用 numberList 通知 observer 要更新，所以這邊不用 deep
+                    numberList(val, oldVal) {
+                        console.log('numberList:', val, oldVal)
+                    },
+                    objList: {
+                        handler(val, oldVal) {
+                            console.log('objList:', val, oldVal)
+                        },
+                        deep: true
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

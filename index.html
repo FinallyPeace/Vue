@@ -16,68 +16,8 @@
             integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
             crossorigin="anonymous"
         />
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"
-            integrity="sha512-YXLGLsQBiwHPHLCAA9npZWhADUsHECjkZ71D1uzT2Hpop82/eLnmFb6b0jo8pK4T0Au0g2FETrRJNblF/46ZzQ=="
-            crossorigin="anonymous"
-        ></script>
+        <link rel="stylesheet" href="../static/index.css" />
         <title>Vue 首頁</title>
-        <style>
-            .img {
-                position: absolute;
-                height: 100vh;
-                width: 100%;
-            }
-            .title {
-                position: relative;
-                top: 18vh;
-                width: fit-content;
-                margin: auto;
-                padding: 5px 20px;
-                background-color: aliceblue;
-                border-radius: 10px;
-                font-weight: bolder;
-                color: #4d6a8c;
-            }
-
-            .description {
-                position: relative;
-                top: 78vh;
-                width: 50%;
-                margin: auto;
-                background-color: #000;
-                color: aliceblue;
-                border-radius: 10px;
-                border: 2px white solid;
-                text-align: center;
-                font-size: 28px;
-                line-height: 50px;
-            }
-            .type {
-                color: skyblue;
-            }
-            .content {
-                color: aquamarine;
-            }
-
-            a {
-                text-decoration: none;
-            }
-            a:hover {
-                color: aquamarine;
-            }
-
-            .arrow {
-                position: absolute;
-                color: aliceblue;
-            }
-            .left {
-                left: -12vw;
-            }
-            .right {
-                right: -12vw;
-            }
-        </style>
     </head>
     <body>
         <div id="app">
@@ -95,24 +35,29 @@
                 </a>
                 <span class="number">{{ index + 1 }}</span>
                 <span class="type">{{ today.type }}</span>
-                <a class="content" href="./2. 使用者輸入 列表呈現/list.html" :href="today.link">{{ today.content }}</a>
+                <a class="content" :href="today.link">{{ today.content }}</a>
                 <a class="arrow right" v-if="index < total-1" @click="changIndex(1)">
                     <i class="fas fa-chevron-right"></i>
                 </a>
             </div>
         </div>
-
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"
+            integrity="sha512-YXLGLsQBiwHPHLCAA9npZWhADUsHECjkZ71D1uzT2Hpop82/eLnmFb6b0jo8pK4T0Au0g2FETrRJNblF/46ZzQ=="
+            crossorigin="anonymous"
+        ></script>
         <script>
             let data = {
                 title: '菜單',
                 src: './image/vue.png',
                 index: 0,
                 menu: [
-                    { type: '開胃菜', content: '表單處理', link: '1. 表單處理/form.html' },
-                    { type: '開胃菜', content: '新增列表', link: '2. 新增列表/list.html' },
-                    { type: '開胃菜', content: '資料搜尋', link: '3. 資料搜尋/search.html' },
-                    { type: '開胃菜', content: '連動表單', link: '4. 連動表單/linkage.html' },
-                    { type: '風味沙拉', content: '...', link: '5.' },
+                    { type: '開胃餐點', content: '表單處理', link: '1. 表單處理/form.html' },
+                    { type: '開胃餐點', content: '新增列表', link: '2. 新增列表/list.html' },
+                    { type: '開胃餐點', content: '資料搜尋', link: '3. 資料搜尋/search.html' },
+                    { type: '開胃餐點', content: '連動表單', link: '4. 連動表單/linkage.html' },
+                    { type: '風味沙拉', content: '過場動畫', link: '5. 過場動畫/css.html' },
+                    { type: '風味沙拉', content: '觀測設定', link: '6. 觀測設定/observer.html' }
                 ]
             }
             // 資料綁定

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+            crossorigin="anonymous"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+            integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+            crossorigin="anonymous"
+        />
+        <link rel="stylesheet" href="../static/index.css" />
+        <title>過場動畫 - jQuery</title>
+        <style>
+            .inline-block {
+                display: inline-block;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <img class="img" :src="src" />
+            <h1 class="title" v-text="title"></h1>
+
+            <div class="description">
+                <a class="arrow left inline-block" v-if="index > 0" v-on:click="changIndex(-1)">
+                    <i class="fas fa-chevron-left"></i>
+                </a>
+                <!-- :css="false" 忽略其他css 以程式動畫為主 -->
+                <transition
+                    @before-enter="beforeEnter"
+                    @enter="enter"
+                    @after-enter="afterEnter"
+                    @enter-cancelled="afterEnter"
+                    @before-leave="beforeLeave"
+                    @leave="leave"
+                    @after-leave="afterLeave"
+                    @leave-cancelled="afterLeave"
+                    :css="false"
+                    mode="out-in"
+                    appear
+                >
+                    <div v-for="(item, i) in menu" v-if="index === i" :key="item.content" class="inline-block">
+                        <span class="number">{{ index }}</span>
+                        <span class="type">{{ item.type }}</span>
+                        <a class="content" :href="item.link">{{ item.content }}</a>
+                    </div>
+                </transition>
+
+                <a class="arrow right inline-block" v-if="index < total-1" @click="changIndex(1)">
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"
+            integrity="sha512-YXLGLsQBiwHPHLCAA9npZWhADUsHECjkZ71D1uzT2Hpop82/eLnmFb6b0jo8pK4T0Au0g2FETrRJNblF/46ZzQ=="
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"
+            integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=="
+            crossorigin="anonymous"
+        ></script>
+        <script>
+            let data = {
+                title: 'jQuery過場動畫',
+                src: '../image/vue.png',
+                index: 0,
+                menu: [
+                    { type: '主廚的話', content: 'Vue 首頁', link: '../index.html' },
+                    { type: '開胃餐點', content: '表單處理', link: '../1. 表單處理/form.html' },
+                    { type: '開胃餐點', content: '新增列表', link: '../2. 新增列表/list.html' },
+                    { type: '開胃餐點', content: '資料搜尋', link: '../3. 資料搜尋/search.html' },
+                    { type: '開胃餐點', content: '連動表單', link: '../4. 連動表單/linkage.html' },
+                    { type: '風味沙拉', content: 'css 過場', link: '../5. 過場動畫/css.html' }
+                ]
+            }
+            let vm = new Vue({
+                el: '#app',
+                data: data,
+                computed: {
+                    today() {
+                        return this.menu[this.index]
+                    },
+                    total() {
+                        return this.menu.length
+                    }
+                },
+                methods: {
+                    changIndex(change) {
+                        this.index = (this.index + change + this.total) % this.total
+                    },
+                    beforeEnter(el) {
+                        $(el).css({ opacity: 0 })
+                    },
+                    enter(el, done) {
+                        $(el).animate({ opacity: 1 }, 250, done)
+                    },
+                    // opacity: 1 殘留，清空
+                    afterEnter(el) {
+                        $(el).css({ opacity: '' })
+                    },
+                    beforeLeave(el) {
+                        $(el).css({ opacity: 1 })
+                    },
+                    leave(el, done) {
+                        $(el).animate({ opacity: 0 }, 250, done)
+                    },
+                    afterLeave(el) {
+                        $(el).css({ opacity: '' })
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

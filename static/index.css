@@ -1,0 +1,54 @@
+.img {
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+}
+.title {
+    position: relative;
+    top: 18vh;
+    width: fit-content;
+    margin: auto;
+    padding: 5px 20px;
+    background-color: aliceblue;
+    border-radius: 10px;
+    font-weight: bolder;
+    color: #4d6a8c;
+}
+
+.description {
+    position: relative;
+    top: 78vh;
+    width: 50%;
+    margin: auto;
+    background-color: #000;
+    color: aliceblue;
+    border-radius: 10px;
+    border: 2px white solid;
+    text-align: center;
+    font-size: 28px;
+    line-height: 50px;
+}
+.type {
+    color: skyblue;
+}
+.content {
+    color: aquamarine;
+}
+
+a {
+    text-decoration: none;
+}
+a:hover {
+    color: aquamarine;
+}
+
+.arrow {
+    position: absolute;
+    color: aliceblue;
+}
+.left {
+    left: -12vw;
+}
+.right {
+    right: -12vw;
+}
