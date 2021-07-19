@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+            crossorigin="anonymous"
+        />
+        <link rel="stylesheet" href="../static/base.css" />
+        <link rel="stylesheet" href="../static/list.css" />
+        <link rel="stylesheet" href="css/crud.css" />
+        <title>通訊錄</title>
+    </head>
+    <body>
+        <div id="app">
+            <section v-if="loading">Loading...</section>
+            <section v-else>
+                <div class="layout input" style="font-size: 0px">
+                    <input type="text" placeholder="會員名稱" style="color: #4d6a8c;"/>
+                    <input type="text" placeholder="電子信箱" />
+                    <button class="send">送出</button>
+                    <button class="cancel">取消</button>
+                </div>
+                <div class="layout menu">
+                    <div class="menuItem">
+                        <span class="number">1</span>
+                        <span class="type">Oscar</span>
+                        <a href="" class="content">oscar@gmail.com</a>
+                        <div>
+                            <button class="edit">修改</button>
+                            <button class="del">刪除</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"
+            integrity="sha512-YXLGLsQBiwHPHLCAA9npZWhADUsHECjkZ71D1uzT2Hpop82/eLnmFb6b0jo8pK4T0Au0g2FETrRJNblF/46ZzQ=="
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.9.1/axios.js"
+            integrity="sha512-Kg0CewqPNO/ziOJuCq5eyl3P/V6OLz/Lb1I2m+yKS3lHZcGVFN/KOew18rWP+kTsL7haYdaqGjwHQCZrN0heLQ=="
+            crossorigin="anonymous"
+        ></script>
+        <script>
+            // 立即函式
+            ;(function (Vue) {
+                new Vue({
+                    el: '#app',
+                    data: {
+                        loading: false,
+                        contact: [],
+                        input: {
+                            name: '',
+                            email: ''
+                        }
+                    },
+                    mounted() {
+                        axios
+                            .get('http://localhost:8080/contact')
+                            .then((res) => {
+                                console.log(res)
+                            })
+                            .catch((err) => {
+                                console.log(err)
+                            })
+                    }
+                })
+            })(Vue)
+        </script>
+    </body>
+</html>

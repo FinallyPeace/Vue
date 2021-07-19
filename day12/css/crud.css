@@ -1,0 +1,37 @@
+input {
+    width: 40%;
+}
+.input button {
+    position: relative;
+    background-color: #f8d461;
+    width: 10%;
+}
+.input button:after {
+    position: absolute;
+    content: '';
+    width: 0;
+    height: 100%;
+    top: 0;
+    left: 0;
+    box-shadow: inset -2px 0px 50px 0px #fff9;
+    transition: all 0.3s ease;
+}
+.send:hover {
+    background-color: #41b885;
+}
+.cancel:hover {
+    background-color: #ce404f;
+}
+.input button:hover:after {
+    left: auto;
+    right: 0;
+    width: 100%;
+}
+.input button:active {
+    bottom: 5px;
+}
+.menuItem {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}

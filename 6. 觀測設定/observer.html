@@ -20,35 +20,33 @@
                 align-content: center;
             }
             .layout {
-                text-align: center;
+                text-align: center; 
             }
             .layout > div {
                 display: inline-block;
-                margin: 0 25px;
+                margin: 0 5%;
                 width: 50px;
-                height: 50px;
-                background: #4d6a8c;
+                background: #fff;
                 border-radius: 50%;
                 line-height: 50px;
-                color: #fff;
+                color: #4d6a8c;
+                font-size: 20px;
             }
         </style>
     </head>
     <body>
         <div id="app">
-            <div class="container">
-                <div class="layout">
-                    <div @click="number++">{{number}}</div>
-                </div>
-                <div class="layout">
-                    <div @click="obj.num++">{{obj.num}}</div>
-                </div>
-                <div class="layout">
-                    <div v-for="(number, index) in numberList" @click="numberListHandler(index)">{{number}}</div>
-                </div>
-                <div class="layout">
-                    <div v-for="(item, index) in objList" @click="objListHandler(index)">{{item.num}}</div>
-                </div>
+            <div class="layout">
+                <div @click="number++">{{number}}</div>
+            </div>
+            <div class="layout">
+                <div @click="obj.num++">{{obj.num}}</div>
+            </div>
+            <div class="layout">
+                <div v-for="(number, index) in numberList" @click="numberListHandler(index)">{{number}}</div>
+            </div>
+            <div class="layout">
+                <div v-for="(item, index) in objList" @click="objListHandler(index)">{{item.num}}</div>
             </div>
         </div>
         <script

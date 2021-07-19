@@ -1,5 +1,6 @@
 body {
     font-weight: bold;
+    margin: 0;
     height: 100vh;
     background-image: linear-gradient(to top, #43b885 0%, #41b885 100%);
 }
@@ -9,4 +10,9 @@ body {
     margin: auto;
     padding: 20px;
     border-radius: 15px;
+}
+@media screen and (max-width: 768px) {
+    .layout {
+        width: 80%;
+    }
 }
