@@ -1,78 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
-            crossorigin="anonymous"
-        />
-        <link rel="stylesheet" href="../static/base.css" />
-        <link rel="stylesheet" href="../static/list.css" />
-        <link rel="stylesheet" href="css/crud.css" />
-        <title>通訊錄</title>
-    </head>
-    <body>
-        <div id="app">
-            <section v-if="loading">Loading...</section>
-            <section v-else>
-                <div class="layout input" style="font-size: 0px">
-                    <input type="text" placeholder="會員名稱" style="color: #4d6a8c;"/>
-                    <input type="text" placeholder="電子信箱" />
-                    <button class="send">送出</button>
-                    <button class="cancel">取消</button>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous" />
+    <link rel="stylesheet" href="../static/base.css" />
+    <link rel="stylesheet" href="../static/list.css" />
+    <link rel="stylesheet" href="css/crud.css" />
+    <title>通訊錄</title>
+</head>
+
+<body>
+    <div id="app">
+        <section v-if="loading">Loading...</section>
+        <section v-else>
+            <div class="layout input" style="font-size: 0px">
+                <input v-model.trim='input.name' type="text" placeholder="會員名稱" style="color: #4d6a8c;" />
+                <input v-model.trim='input.email' type="text" placeholder="電子信箱" />
+                <button @click='send' class="send">送出</button>
+                <button @click='cancel' class="cancel">取消</button>
+            </div>
+            <div class="layout menu">
+                <div class="menuItem" v-for='item, index in contacts'>
+                    <span class="number">{{item.id}}</span>
+                    <span class="type">{{item.name}}</span>
+                    <a :href="'mailto:' + item.email" class="content">{{item.email}}</a>
+                    <button @click='edit(index)' class="edit">修改</button>
+                    <button @click='del(index)' class="del">刪除</button>
                 </div>
-                <div class="layout menu">
-                    <div class="menuItem">
-                        <span class="number">1</span>
-                        <span class="type">Oscar</span>
-                        <a href="" class="content">oscar@gmail.com</a>
-                        <div>
-                            <button class="edit">修改</button>
-                            <button class="del">刪除</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"
-            integrity="sha512-YXLGLsQBiwHPHLCAA9npZWhADUsHECjkZ71D1uzT2Hpop82/eLnmFb6b0jo8pK4T0Au0g2FETrRJNblF/46ZzQ=="
-            crossorigin="anonymous"
-        ></script>
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.9.1/axios.js"
-            integrity="sha512-Kg0CewqPNO/ziOJuCq5eyl3P/V6OLz/Lb1I2m+yKS3lHZcGVFN/KOew18rWP+kTsL7haYdaqGjwHQCZrN0heLQ=="
-            crossorigin="anonymous"
-        ></script>
-        <script>
-            // 立即函式
-            ;(function (Vue) {
-                new Vue({
-                    el: '#app',
-                    data: {
-                        loading: false,
-                        contact: [],
-                        input: {
+            </div>
+        </section>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.js"
+        integrity="sha512-YXLGLsQBiwHPHLCAA9npZWhADUsHECjkZ71D1uzT2Hpop82/eLnmFb6b0jo8pK4T0Au0g2FETrRJNblF/46ZzQ=="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.9.1/axios.js"
+        integrity="sha512-Kg0CewqPNO/ziOJuCq5eyl3P/V6OLz/Lb1I2m+yKS3lHZcGVFN/KOew18rWP+kTsL7haYdaqGjwHQCZrN0heLQ=="
+        crossorigin="anonymous"></script>
+    <script>
+        // 立即函式
+        ; (function (Vue) {
+            new Vue({
+                el: '#app',
+                data: {
+                    loading: false,
+                    contacts: [],
+                    input: {
+                        name: '',
+                        email: ''
+                    },
+                    editIndex: null
+                },
+                methods: {
+                    send() {
+                        let { name, email } = this.input
+                        if (!name || !email) return
+                        this.loading = true
+                        if (this.editIndex == null) {
+                            // post(位置, 內容)
+                            axios.post('http://localhost:8080/contacts', this.input)
+                                .then((response) => {
+                                    // 同步 contacts 裡的資料
+                                    this.contacts.push(response.data)
+                                    // 清除 input
+                                    this.cancel()
+                                    // loading 關掉
+                                    this.loading = false
+                                })
+                                .catch((error) => {
+                                    console.log(error)
+                                })
+                        } else {
+                            let id = this.contacts[this.editIndex].id
+                            axios.put('http://localhost:8080/contacts/' + id, this.input)
+                                .then((response) => {
+                                    this.contacts[this.editIndex] = response.data
+                                    this.cancel()
+                                    this.loading = false
+                                })
+                        }
+
+                    },
+                    cancel() {
+                        this.editIndex = null
+                        this.input = {
                             name: '',
                             email: ''
                         }
                     },
-                    mounted() {
-                        axios
-                            .get('http://localhost:8080/contact')
-                            .then((res) => {
-                                console.log(res)
-                            })
-                            .catch((err) => {
-                                console.log(err)
-                            })
+                    edit(index) {
+                        let { name, email } = this.contacts[index]
+                        this.editIndex = index
+                        this.input = {
+                            name,
+                            email
+                        }
+                    },
+                    del(index) {
+                        let target = this.contacts[index]
+                        if (confirm(`是否要刪除 ${target.name}`)) {
+                            this.loading = true
+                            axios.delete('http://localhost:8080/contacts/' + target.id)
+                                .then((response) => {
+                                    this.contacts.splice(index, 1)
+                                    this.cancel() //按修改再刪除要清空
+                                    this.loading = false
+                                })
+                                .catch((error) => {
+                                    console.log(error)
+                                })
+                        }
                     }
-                })
-            })(Vue)
-        </script>
-    </body>
+                },
+                mounted() {
+                    this.loading = true
+                    axios.get('http://localhost:8080/contacts')
+                        .then((response) => {
+                            console.log(response)
+                            this.contacts = response.data
+                            this.loading = false
+                        })
+                        .catch((error) => {
+                            console.log(error)
+                        })
+                }
+            })
+        })(Vue)
+    </script>
+</body>
+
 </html>
