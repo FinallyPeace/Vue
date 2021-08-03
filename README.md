@@ -11,6 +11,12 @@
     crossorigin="anonymous"
 ></script>
 
+<!-- Vue CLI -->
+`npm install -g @vue/cli`
+`vue create my-project`
+or
+`vue ui`
+
 <!-- Bootstrap -->
 <link
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"

@@ -1,0 +1,5 @@
+<input v-model='inputText' type="text">
+<!-- 用 v-model='text'改值時會出錯，
+    不允許直接從子Component(index.vue)去修改外部(App.vue)資料，
+    因為資料是外部傳給你的，不屬於子組件
+-->

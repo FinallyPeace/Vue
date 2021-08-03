@@ -16,5 +16,5 @@
 -   GET
 -   POST -> Body -> raw -> JSON
 -   PUT 一次更新整包，需打全部內容修改
--   PATCH 可指更新單一屬性
+-   PATCH 可只更新單一屬性
 -   DELETE
