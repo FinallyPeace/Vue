@@ -19,6 +19,23 @@ const routes = [
         // which is lazy-loaded when the route is visited.
         component: () =>
             import(/* webpackChunkName: "about" */ "../views/About.vue"),
+        // 子路由
+        children: [
+            {
+                path: "info",
+                name: "about-info",
+                component: () =>
+                    import(/* webpackChunkName: "info" */ "../views/Info.vue"),
+            },
+            {
+                path: "youtube",
+                name: "about-youtube",
+                component: () =>
+                    import(
+                        /* webpackChunkName: "youtube" */ "../views/YouTube.vue"
+                    ),
+            },
+        ],
     },
     {
         path: "/contact",
